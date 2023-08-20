@@ -1,1 +1,3 @@
 .idea
+.docker
+package-lock.json
