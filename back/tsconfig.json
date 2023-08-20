@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "lib": ["es6"],
+    "allowJs": true,
+    "noEmit": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "removeComments": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "typeRoots": ["./node_modules/@types", "./src/@types"],
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "types": ["vitest/globals"],
+    "paths": {
+      /* import absolute path */
+      "@application/*": ["src/application/*"],
+      "@docs/*": ["src/application/docs/*"],
+      "@infra/*": ["./src/infra/*"],
+      "@interfaces/*": ["./src/domain/interfaces/*"],
+      "@models/*": ["./src/domain/models/*"],
+      /* import from index.ts */
+      "@application": ["src/application"],
+      "@config": ["./src/config"],
+      "@docs": ["src/application/docs"],
+      "@DTO": ["./src/domain/DTO"],
+      "@infra": ["./src/infra"],
+      "@interfaces": ["./src/domain/interfaces"],
+      "@models": ["./src/domain/models"],
+      "@DAO": ["./src/infra/data/DAO"],
+      "@repositories": ["./src/infra/data/repositories"],
+      "@services": ["./src/domain/services"],
+      "@i18n": ["./src/i18n"]
+    }
+  },
+  "include": ["src/**/*"]
+}
