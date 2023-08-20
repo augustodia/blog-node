@@ -1,0 +1,31 @@
+version: "3"
+services:
+  app:
+    image: node:20.0-slim
+    ports:
+      - "3000:3000"
+    working_dir: /home/node/app
+    command: bash "./entrypoint.sh"
+    volumes:
+      - .:/home/node/app
+    networks:
+      - keycloak_network
+
+  db:
+    image: mysql:8.0.30-debian
+    volumes:
+      - ./.docker/dbdata:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=keycloak
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 10s
+      retries: 3
+    networks:
+      - keycloak_network
+
+networks:
+  keycloak_network:
+    external: true

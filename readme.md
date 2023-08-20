@@ -126,3 +126,8 @@ A forma mais comum é usando JWT. JWT é um token gerado apartir de uma chave p�
 A autorização pode ser feita por meio de ACL, que é a lista de controle de quais recursos tão usuário tem acesso. Aí que entra também os middlewares. Em rotas que  precise de autorização, é importante validar antes se tal usuário tem a devidade permissão.
 
 Para o JWT pode ser utilizado a biblioteca jsonwebtoken. Para ACL, pode ser feito normalmente na mão, pois não é complexo, mas já vi usarem a node-acl. Passport.js é um framework que já tem vários recursos prontos sobre JWT, OAuth, ACL etc.
+
+
+## Como rodar?
+
+Abra o termina e rode o comando `docker compose up`
