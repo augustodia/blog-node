@@ -1,4 +1,4 @@
-# Desafio Node Pleno do curso B7Web
+# Desafio Node Pleno
 
 ## Perguntas teóricas
 
