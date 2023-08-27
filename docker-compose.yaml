@@ -4,19 +4,30 @@ services:
     build: ./back
     ports:
       - "4321:4321"
-    working_dir: /home/blog/back
+    working_dir: /home/node/back
     command: bash "./entrypoint.sh"
     volumes:
-      - ./back:/home/blog/back
+      - ./back:/home/node/back
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "localhost:4321" ]
+      interval: 5s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      db:
+        condition: service_healthy
 
   front:
     build: ./front
     ports:
       - "5173:5173"
-    working_dir: /home/blog/front
+    working_dir: /home/node/front
     command: bash "./entrypoint.sh"
     volumes:
-      - ./front:/home/blog/front
+      - ./front:/home/node/front
+    depends_on:
+      back:
+        condition: service_healthy
 
   db:
     image: mysql:8.0.30-debian

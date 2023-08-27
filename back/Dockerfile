@@ -1,7 +1,5 @@
 FROM node:20.0-slim
 
-#WORKDIR /home/blog/back
+RUN apt-get update && apt-get install -y curl
 
-USER blog
-
-CMD ["tail", "-f", "/dev/null"]
+USER node

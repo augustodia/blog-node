@@ -1,6 +1,4 @@
 .idea
 .docker
-node_modules
-/front/node_modules
-/back/node_modules
-
+**/node_modules
+**/package-lock.json
