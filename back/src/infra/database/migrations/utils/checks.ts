@@ -1,0 +1,1 @@
+export const IS_EMAIL_REGEX: string = '^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$';

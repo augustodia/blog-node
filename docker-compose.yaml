@@ -31,11 +31,13 @@ services:
 
   db:
     image: mysql:8.0.30-debian
+    ports:
+      - "3306:3306"
     volumes:
       - ./.docker/dbdata:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=blog
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: blog
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 5s

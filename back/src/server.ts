@@ -1,7 +1,9 @@
-import express from 'express';
-const app = express()
+import app from './app'
+import databaseConnection from "@infra/database/databaseConnection";
+const {SERVER_PORT} = process.env;
 
-app.listen(4321)
-app.get('/', (req, res) => {
-    res.send('hello world')
-})
+databaseConnection()
+
+app.listen(SERVER_PORT)
+
+console.debug(`🟢 Server is running http://localhost:${SERVER_PORT}`)
