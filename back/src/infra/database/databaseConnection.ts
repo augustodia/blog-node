@@ -1,16 +1,7 @@
 import knex from "knex";
+import knexConfig from "./knexfile";
 
-knex({
-    client: 'mysql2',
-    connection: {
-        host : process.env.DATABASE_HOST,
-        port : Number(process.env.DATABASE_PORT),
-        user : process.env.DATABASE_USER as string,
-        password : process.env.DATABASE_PASSWORD as string,
-        database : process.env.DATABASE_NAME as string
-    },
-    migrations: {
-        directory: './migrations',
-        loadExtensions: ['.ts']
-    }
-})
+const db = knex(knexConfig.development)
+
+export default db
+
