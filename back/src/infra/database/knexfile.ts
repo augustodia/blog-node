@@ -1,24 +1,29 @@
 import type { Knex } from "knex";
-import dotenv = require('dotenv');
+import dotenv = require("dotenv");
+import path from "path";
+dotenv.config({ path: path.resolve(__dirname, "..", "..", "..", ".env") });
 
-dotenv.config({
-  path: '../../../.env'
-})
+function camelToSnakeCase(str: string) {
+  return str.replace(/[A-Z]/g, (letter, index) =>
+    index === 0 ? letter.toLowerCase() : `_${letter.toLowerCase()}`
+  );
+}
 
 const config: { [key: string]: Knex.Config } = {
   development: {
-    client: 'mysql2',
+    client: "mysql2",
     connection: {
-      host : process.env.DATABASE_HOST,
-      port : Number(process.env.DATABASE_PORT),
-      user : process.env.DATABASE_USER as string,
-      password : process.env.DATABASE_PASSWORD as string,
-      database : process.env.DATABASE_NAME as string
+      host: process.env.DATABASE_HOST,
+      port: Number(process.env.DATABASE_PORT),
+      user: process.env.DATABASE_USER as string,
+      password: process.env.DATABASE_PASSWORD as string,
+      database: process.env.DATABASE_NAME as string,
     },
+    wrapIdentifier: (value, origImpl) => origImpl(camelToSnakeCase(value)),
     migrations: {
-      directory: './migrations',
-      loadExtensions: ['.js','.ts']
-    }
+      directory: "./migrations",
+      loadExtensions: [".js", ".ts"],
+    },
   },
 };
 

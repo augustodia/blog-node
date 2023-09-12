@@ -9,7 +9,7 @@ services:
     volumes:
       - ./back:/home/node/back
     healthcheck:
-      test: [ "CMD", "curl", "-f", "localhost:4321" ]
+      test: [ "CMD", "curl", "-f", "localhost:4321/ping" ]
       interval: 5s
       timeout: 10s
       retries: 3

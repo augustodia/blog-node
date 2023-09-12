@@ -1,8 +1,9 @@
-import {Router, Response, Request} from "express";
-const router =  Router();
+import { Router, Response, Request } from "express";
 
-router.get('/', (req: Request, res: Response) => {
-    res.status(200).send('Maoe');
-})
+const router = Router();
 
-export default {basePath: '/auth', router}
+router.get("/", (req: Request, res: Response) => {
+  res.status(200).send("Maoe");
+});
+
+export default { basePath: "/auth", router };

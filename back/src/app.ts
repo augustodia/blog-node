@@ -1,15 +1,12 @@
-import express, {Application, Request, Response} from 'express';
-import dotenv from 'dotenv'
+import express, { Application } from "express";
+import dotenv from "dotenv";
 
-import authController from '@application/controllers/auth/routes'
+import initiateRoutes from "@application/controllers/routes";
 
 const app: Application = express();
 
 dotenv.config();
-
-app.use(authController.basePath, authController.router)
-app.use('/', (req: Request, res: Response)=> {
-    res.send('pong')
-})
+app.use(express.json({ limit: "50mb" }));
+initiateRoutes(app);
 
 export default app;

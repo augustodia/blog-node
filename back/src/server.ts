@@ -1,6 +1,8 @@
-import app from './app'
-const {SERVER_PORT} = process.env;
+import 'reflect-metadata';
+import app from "./app";
 
-app.listen(SERVER_PORT)
+const { SERVER_PORT } = process.env;
 
-console.debug(`🟢 Server is running http://localhost:${SERVER_PORT}`)
+app.listen(SERVER_PORT);
+
+console.debug(`🟢 Server is running http://localhost:${SERVER_PORT}`);
