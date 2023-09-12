@@ -130,4 +130,4 @@ Para o JWT pode ser utilizado a biblioteca jsonwebtoken. Para ACL, pode ser feit
 
 ## Como rodar?
 
-Abra o termina e rode o comando `docker compose up`
+Abra o terminal e rode o comando `docker compose up`
