@@ -1,4 +1,5 @@
-# Desafio Node Pleno B7Web
+# Desafio Node Pleno B7Web 
+## Desafio de uma plataforma de curso que visa praticar como se estivéssemos em uma entrevista de emprego
 
 ## Perguntas teóricas
 
