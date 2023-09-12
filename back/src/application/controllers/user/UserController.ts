@@ -15,8 +15,6 @@ export default class UserController implements IUserController {
 
     await this.service.create(dto);
 
-    console.log(req.body);
-
-    return res.status(201).send(req.body);
+    return res.status(201).send();
   }
 }

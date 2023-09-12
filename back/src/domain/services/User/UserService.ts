@@ -25,7 +25,7 @@ export default class UserService implements IUserService {
     const errors: string[] = [];
 
     const userWithUserName = await this.repository.findBy({
-      column: "user_name",
+      column: "userName",
       value: dto.userName,
     });
     if (userWithUserName)
