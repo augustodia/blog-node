@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { UnauthorizedError } from "../../../domain/@errors";
 
 type AsyncHandler = (
   req: Request,
@@ -11,8 +12,10 @@ export function handleError(callBack: AsyncHandler) {
     try {
       await callBack(req, res, next);
     } catch (e) {
-      res.status(500).send({ errors: e });
-      return next(e);
+      if (e instanceof Error) {
+        return res.status(401).send({ error: e.message });
+      }
+      return res.status(500).send({ errors: e });
     }
   };
 }
