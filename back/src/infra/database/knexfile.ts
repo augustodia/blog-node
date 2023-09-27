@@ -1,6 +1,7 @@
 import type { Knex } from "knex";
 import dotenv = require("dotenv");
 import path from "path";
+import { normalizeOutput } from "./@helpers/normalizeOutput";
 dotenv.config({ path: path.resolve(__dirname, "..", "..", "..", ".env") });
 
 function camelToSnakeCase(str: string) {
@@ -20,6 +21,17 @@ const config: { [key: string]: Knex.Config } = {
       database: process.env.DATABASE_NAME as string,
     },
     wrapIdentifier: (value, origImpl) => origImpl(camelToSnakeCase(value)),
+    postProcessResponse: (result) => {
+      if (Array.isArray(result) && typeof result[0] !== "object") {
+        return result;
+      }
+
+      if (typeof result !== "object") {
+        return result;
+      }
+
+      return normalizeOutput(result);
+    },
     migrations: {
       directory: "./migrations",
       loadExtensions: [".js", ".ts"],
