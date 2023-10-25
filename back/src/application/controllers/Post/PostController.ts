@@ -33,7 +33,7 @@ export default class PostController implements IPostController {
 
     await this.service.update(idSync, dto, context);
 
-    return res.status(201).send();
+    return res.status(204).send();
   }
 
   async inactivate(req: CustomRequest, res: Response): Promise<Response> {
