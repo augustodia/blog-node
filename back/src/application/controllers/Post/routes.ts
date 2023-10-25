@@ -11,5 +11,14 @@ router.use(authMiddleware);
 const controller = Container.get(IPostController);
 
 router.post("/create", handleError(controller.create.bind(controller)));
+router.put("/update/:idSync", handleError(controller.update.bind(controller)));
+router.post(
+  "/inactivate/:idSync",
+  handleError(controller.inactivate.bind(controller))
+);
+router.delete(
+  "/delete/:idSync",
+  handleError(controller.delete.bind(controller))
+);
 
 export default { basePath: "/post", router };

@@ -5,13 +5,13 @@ export interface IPost extends IEntityProps {
   id?: string;
   title: string;
   published: boolean;
-  contentBlocks?: ContentBlock[];
+  contentBlocks: ContentBlock[];
 }
 
 export class Post extends IEntity {
-  private readonly _title: string;
-  private readonly _published: boolean;
-  private readonly _contentBlocks: ContentBlock[];
+  private _title: string;
+  private _published: boolean;
+  private _contentBlocks: ContentBlock[];
 
   constructor(props: IPost) {
     super(props);
@@ -33,27 +33,16 @@ export class Post extends IEntity {
     return this._contentBlocks;
   }
 
-  public addContent(contentBlock: ContentBlock): void {
-    this._contentBlocks.push(contentBlock);
+  public update(postUpdate: IPost) {
+    this._title = postUpdate.title;
+    this._published = postUpdate.published;
+    this._title = postUpdate.title;
+
+    if (postUpdate.contentBlocks)
+      this.updateContentBlocks(postUpdate.contentBlocks);
   }
 
-  public updateContent(contentBlock: ContentBlock): void {
-    const blockToUpdateIdx = this._contentBlocks.findIndex(
-      ({ id }) => id == contentBlock.id
-    );
-
-    if (blockToUpdateIdx === -1) return;
-
-    this._contentBlocks[blockToUpdateIdx] = contentBlock;
-  }
-
-  public deleteContent(contentBlock: ContentBlock): void {
-    const blockToDeleteIdx = this._contentBlocks.findIndex(
-      ({ id }) => id == contentBlock.id
-    );
-
-    if (blockToDeleteIdx === -1) return;
-
-    this._contentBlocks.splice(blockToDeleteIdx, 1);
+  public updateContentBlocks(contentBlocks: ContentBlock[]) {
+    this._contentBlocks = contentBlocks;
   }
 }
