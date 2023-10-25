@@ -3,8 +3,8 @@ import jwt from "jsonwebtoken";
 import { IAuthController } from "src/application/controllers/@shared/interfaces";
 import { Request, Response } from "express";
 import { IAuthService } from "@interfaces";
-import { UserCredentialsSchema } from "src/domain/validators";
 import * as process from "process";
+import { UserCredentialsSchema } from "@DTO";
 
 @injectable()
 export default class AuthController implements IAuthController {
