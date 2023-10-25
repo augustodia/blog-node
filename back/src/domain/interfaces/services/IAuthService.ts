@@ -1,5 +1,4 @@
-import { UserCredentialsDto } from "@application/validators";
-import { AuthUserDTO } from "@DTO";
+import { AuthUserDTO, UserCredentialsDto } from "@DTO";
 
 export abstract class IAuthService {
   abstract login(userCredentials: UserCredentialsDto): Promise<AuthUserDTO>;

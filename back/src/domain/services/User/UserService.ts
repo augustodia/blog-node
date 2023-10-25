@@ -1,12 +1,16 @@
 import { injectable } from "inversify";
 import { hash, genSalt } from "bcryptjs";
-import { UserCreateDto } from "@application/validators";
+import { UserCreateDto } from "../../validators";
 import { User } from "@entities";
 import { IUserRepository, IUserService } from "@interfaces";
 
 @injectable()
 export default class UserService implements IUserService {
   constructor(private repository: IUserRepository) {}
+
+  async findById(userId: string): Promise<User | undefined> {
+    return this.repository.findBy({ column: "id", value: userId });
+  }
 
   async create(dto: UserCreateDto) {
     await this.verifyExistUserWithUserNameOrEmail(dto);

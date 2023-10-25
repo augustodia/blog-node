@@ -1,9 +1,9 @@
 import { injectable } from "inversify";
 import jwt from "jsonwebtoken";
-import { IAuthController } from "@application/controllers/@interfaces";
+import { IAuthController } from "src/application/controllers/@shared/interfaces";
 import { Request, Response } from "express";
 import { IAuthService } from "@interfaces";
-import { UserCredentialsSchema } from "@application/validators";
+import { UserCredentialsSchema } from "src/domain/validators";
 import * as process from "process";
 
 @injectable()

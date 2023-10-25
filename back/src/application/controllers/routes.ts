@@ -1,7 +1,8 @@
 import { Application, Request, Response } from "express";
-import type { RouteType } from "@application/controllers/@types/routeType";
-import authController from "@application/controllers/auth/routes";
-import userController from "@application/controllers/user/routes";
+import type { RouteType } from "@application/controllers/@shared/types/routeType";
+import authController from "@application/controllers/Auth/routes";
+import userController from "@application/controllers/User/routes";
+import postController from "@application/controllers/Post/routes";
 
 function defineRoutes(app: Application) {
   return ({ basePath, router }: RouteType) => {
@@ -10,7 +11,7 @@ function defineRoutes(app: Application) {
 }
 
 export default function initiateRoutes(app: Application) {
-  const routes: RouteType[] = [authController, userController];
+  const routes: RouteType[] = [authController, userController, postController];
 
   routes.map(defineRoutes(app));
 

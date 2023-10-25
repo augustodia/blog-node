@@ -1,9 +1,9 @@
 import { injectable } from "inversify";
 import { compare } from "bcryptjs";
 import { IAuthRepository, IAuthService } from "@interfaces";
-import { UnauthorizedError } from "../../@errors";
-import { UserCredentialsDto } from "@application/validators";
+import { UserCredentialsDto } from "src/domain/validators";
 import { AuthUserDTO } from "@DTO";
+import { UnauthorizedError } from "@application/controllers/@shared/errors";
 
 @injectable()
 export class AuthService implements IAuthService {

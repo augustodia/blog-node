@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { UnauthorizedError } from "../../../domain/@errors";
 
 type AsyncHandler = (
   req: Request,
