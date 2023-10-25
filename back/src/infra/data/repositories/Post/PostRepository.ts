@@ -22,7 +22,6 @@ export class PostRepository extends BaseRepository implements IPostRepository {
       await transaction.commit();
     } catch (error) {
       await transaction.rollback();
-
       throw error;
     }
   }
