@@ -49,18 +49,14 @@ export class PostRepository extends BaseRepository implements IPostRepository {
     content: ContentBlock,
     transaction: Knex.Transaction
   ) {
-    console.log(postId);
     await this.connection("post_content")
-      .insert(
-        {
-          id: content.id,
-          content: content.value,
-          visible: content.visible,
-          order: content.order,
-          post_id: postId,
-        },
-        "id"
-      )
+      .insert({
+        id: content.id,
+        content: content.value,
+        visible: content.visible,
+        order: content.order,
+        post_id: postId,
+      })
       .transacting(transaction);
   }
 }
