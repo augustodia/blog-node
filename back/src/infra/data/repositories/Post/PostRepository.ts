@@ -56,6 +56,7 @@ export class PostRepository extends BaseRepository implements IPostRepository {
           id: content.id,
           content: content.value,
           visible: content.visible,
+          order: content.order,
           post_id: postId,
         },
         "id"

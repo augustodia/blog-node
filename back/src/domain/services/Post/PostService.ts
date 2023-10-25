@@ -1,8 +1,7 @@
 import { injectable } from "inversify";
-import { PostCreateDto } from "../../validators";
 import { ContentBlock, Post } from "@entities";
 import { IPostRepository, IPostService } from "@interfaces";
-import { UserContext } from "@DTO";
+import { PostCreateDto, UserContext } from "@DTO";
 
 @injectable()
 export default class PostService implements IPostService {

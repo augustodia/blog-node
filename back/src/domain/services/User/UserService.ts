@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
 import { hash, genSalt } from "bcryptjs";
-import { UserCreateDto } from "../../validators";
 import { User } from "@entities";
 import { IUserRepository, IUserService } from "@interfaces";
+import { UserCreateDto } from "@DTO";
 
 @injectable()
 export default class UserService implements IUserService {
