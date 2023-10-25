@@ -1,11 +1,12 @@
 import z from "zod";
 import { ContentBlockTypeEnum } from "@entities";
 
-export const PostCreateSchema = z.object({
+export const PostUpdateSchema = z.object({
   title: z.string(),
   published: z.boolean(),
   contentBlocks: z.array(
     z.object({
+      id: z.string().optional(),
       value: z.string(),
       visible: z.boolean(),
       order: z.number(),
@@ -14,4 +15,4 @@ export const PostCreateSchema = z.object({
   ),
 });
 
-export type PostCreateDto = z.infer<typeof PostCreateSchema>;
+export type PostUpdateDto = z.infer<typeof PostUpdateSchema>;

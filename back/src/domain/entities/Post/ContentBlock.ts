@@ -1,6 +1,6 @@
 import { IEntity, IEntityProps } from "@interfaces/entities/IEntity";
 
-export enum ContentBlockEnum {
+export enum ContentBlockTypeEnum {
   Text = "text",
 }
 
@@ -9,13 +9,14 @@ export interface IContentBlock extends IEntityProps {
   value: string;
   visible: boolean;
   order: number;
-  type: ContentBlockEnum;
+  type: ContentBlockTypeEnum;
 }
 
 export class ContentBlock extends IEntity {
-  private readonly _value: string;
-  private readonly _visible: boolean;
-  private readonly _order: number;
+  private _value: string;
+  private _visible: boolean;
+  private _order: number;
+  private _type: ContentBlockTypeEnum;
 
   constructor(props: IContentBlock) {
     super(props);
@@ -23,6 +24,7 @@ export class ContentBlock extends IEntity {
     this._value = props.value;
     this._visible = props.visible;
     this._order = props.order;
+    this._type = props.type;
   }
 
   get visible(): boolean {
@@ -35,5 +37,24 @@ export class ContentBlock extends IEntity {
 
   get order(): number {
     return this._order;
+  }
+  get type(): ContentBlockTypeEnum {
+    return this._type;
+  }
+
+  set visible(visible) {
+    this._visible = visible;
+  }
+
+  set value(value) {
+    this._value = value;
+  }
+
+  set order(order) {
+    this._order = order;
+  }
+
+  set type(type) {
+    this._type = type;
   }
 }

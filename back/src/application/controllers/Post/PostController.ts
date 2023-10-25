@@ -1,10 +1,12 @@
 import { injectable } from "inversify";
-import IPostController from "@application/controllers/@shared/interfaces/IPostController";
 import { IPostService } from "@interfaces";
-import { CustomRequest } from "@application/controllers/@shared/interfaces";
+import {
+  CustomRequest,
+  IPostController,
+} from "@application/controllers/@shared/interfaces";
 import { getRequestInfo } from "@application/controllers/@shared/helpers/getRequestInfo";
-import { Response } from "express";
-import { PostCreateSchema } from "@DTO";
+import e, { Response } from "express";
+import { PostCreateSchema, PostUpdateSchema } from "@DTO";
 
 @injectable()
 export default class PostController implements IPostController {
@@ -18,5 +20,27 @@ export default class PostController implements IPostController {
     await this.service.create(dto, context);
 
     return res.status(201).send();
+  }
+
+  async update(req: CustomRequest, res: Response): Promise<Response> {
+    const { body, context, params } = getRequestInfo(req);
+
+    const { idSync } = params;
+
+    if (!idSync) return res.status(400).send("idSync is required");
+
+    const dto = PostUpdateSchema.parse(body);
+
+    await this.service.update(idSync, dto, context);
+
+    return res.status(201).send();
+  }
+
+  async inactivate(req: CustomRequest, res: Response): Promise<Response> {
+    return res.status(200).send();
+  }
+
+  async delete(req: CustomRequest, res: Response): Promise<e.Response> {
+    return res.status(200).send();
   }
 }
