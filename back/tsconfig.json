@@ -22,9 +22,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
-    "types": [
-      "vitest/globals"
-    ],
     "paths": {
       /* import absolute path */
       "@application/*": [
