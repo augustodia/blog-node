@@ -1,12 +1,10 @@
 import { Router } from "express";
-import IUserController from "@application/controllers/@interfaces/IUserController";
+import IUserController from "@application/controllers/@shared/interfaces/IUserController";
 import Container from "@infra/Ioc";
-import { handleError } from "@application/controllers/@helpers";
-import { verifyToken } from "@application/controllers/@middlewares";
+import { handleError } from "src/application/controllers/@shared/helpers";
 
 const router = Router();
 
-router.use(verifyToken);
 const controller = Container.get(IUserController);
 
 router.post("/create", handleError(controller.create.bind(controller)));

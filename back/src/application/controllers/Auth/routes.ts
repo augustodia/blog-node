@@ -1,7 +1,7 @@
-import { Router, Response, Request } from "express";
+import { Router } from "express";
 import Container from "@infra/Ioc";
-import { IAuthController } from "@application/controllers/@interfaces";
-import { handleError } from "@application/controllers/@helpers";
+import { IAuthController } from "src/application/controllers/@shared/interfaces";
+import { handleError } from "src/application/controllers/@shared/helpers";
 
 const router = Router();
 

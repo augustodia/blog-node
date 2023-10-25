@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { UserCreateSchema } from "@application/validators";
+import { UserCreateSchema } from "src/domain/validators";
 import { injectable } from "inversify";
-import IUserController from "@application/controllers/@interfaces/IUserController";
+import IUserController from "@application/controllers/@shared/interfaces/IUserController";
 import { IUserService } from "@interfaces";
 
 @injectable()
