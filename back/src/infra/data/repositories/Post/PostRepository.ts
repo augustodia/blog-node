@@ -130,10 +130,10 @@ export class PostRepository extends BaseRepository implements IPostRepository {
     if (!postToUpdate) throw Error("Error while get Entity");
 
     const { additions, updates, deletions } = getDifferencesInListsOfObjects({
-      oldList: postToUpdate.contentBlocks,
-      newList: newContentBlocks,
-      fieldToCompare: "id",
-      fieldsToExcludeToCompare: ["createdAt", "updatedAt"],
+      originalList: postToUpdate.contentBlocks,
+      updatedList: newContentBlocks,
+      idField: "id",
+      nonComparableUpdateFields: ["createdAt", "updatedAt"],
     });
 
     const contentPostPromises = [

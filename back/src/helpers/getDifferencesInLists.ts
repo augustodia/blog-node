@@ -1,24 +1,24 @@
 type CompareListArguments<T, F extends keyof T> = {
-  oldList: T[];
-  newList: T[];
-  fieldToCompare: F;
-  fieldsToExcludeToCompare: F[];
+  originalList: T[];
+  updatedList: T[];
+  idField: F;
+  nonComparableUpdateFields: F[];
 };
 export function getDifferencesInListsOfObjects<T, F extends keyof T>({
-  oldList,
-  newList,
-  fieldToCompare,
-  fieldsToExcludeToCompare,
+  originalList,
+  updatedList,
+  idField,
+  nonComparableUpdateFields,
 }: CompareListArguments<T, F>) {
   const additions: T[] = [];
   const updates: T[] = [];
   const deletions: T[] = [];
 
   const oldItemsByField = new Map(
-    oldList.map((item) => [item[fieldToCompare], item])
+    originalList.map((item) => [item[idField], item])
   );
   const newItemsByField = new Map(
-    newList.map((item) => [item[fieldToCompare], item])
+    updatedList.map((item) => [item[idField], item])
   );
 
   for (const [id, newItem] of newItemsByField.entries()) {
@@ -29,8 +29,8 @@ export function getDifferencesInListsOfObjects<T, F extends keyof T>({
       continue;
     }
 
-    const filteredNewItem = filterFields(newItem, fieldsToExcludeToCompare);
-    const filteredOldItem = filterFields(oldItem, fieldsToExcludeToCompare);
+    const filteredNewItem = filterFields(newItem, nonComparableUpdateFields);
+    const filteredOldItem = filterFields(oldItem, nonComparableUpdateFields);
 
     const isEqual =
       JSON.stringify(filteredNewItem) === JSON.stringify(filteredOldItem);
