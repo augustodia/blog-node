@@ -8,5 +8,6 @@ export abstract class IPostService {
     context: UserContext
   ): Promise<void>;
   abstract inactivate(idSync: string, context: UserContext): Promise<void>;
+  abstract reactivate(idSync: string, context: UserContext): Promise<void>;
   abstract delete(idSync: string, context: UserContext): Promise<void>;
 }

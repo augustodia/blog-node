@@ -7,5 +7,9 @@ const router = Router();
 
 const controller = Container.get(IAuthController);
 router.post("/login", handleError(controller.login.bind(controller)));
+router.post(
+  "/refresh-token",
+  handleError(controller.refreshToken.bind(controller))
+);
 
 export default { basePath: "/auth", router };

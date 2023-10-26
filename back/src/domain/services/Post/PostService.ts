@@ -62,7 +62,7 @@ export default class PostService implements IPostService {
   }
 
   async inactivate(idSync: string, context: UserContext): Promise<void> {
-    const postToInactive = await this.repository.findByWithPermission(
+    const postToInactivete = await this.repository.findByWithPermission(
       {
         column: "id",
         value: idSync,
@@ -70,9 +70,23 @@ export default class PostService implements IPostService {
       context
     );
 
-    if (!postToInactive) throw new EntityNotFound("Post");
+    if (!postToInactivete) throw new EntityNotFound("Post");
 
-    await this.repository.inactivate(postToInactive);
+    await this.repository.inactivate(postToInactivete);
+  }
+
+  async reactivate(idSync: string, context: UserContext): Promise<void> {
+    const postToActivate = await this.repository.findByWithPermission(
+      {
+        column: "id",
+        value: idSync,
+      },
+      context
+    );
+
+    if (!postToActivate) throw new EntityNotFound("Post");
+
+    await this.repository.reactivate(postToActivate);
   }
 
   async delete(idSync: string, context: UserContext): Promise<void> {

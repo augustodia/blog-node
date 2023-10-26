@@ -48,6 +48,18 @@ export default class PostController implements IPostController {
     return res.status(204).send();
   }
 
+  async reactivate(req: CustomRequest, res: Response): Promise<Response> {
+    const { context, params } = getRequestInfo(req);
+
+    const { idSync } = params;
+
+    if (!idSync) return res.status(400).send("idSync is required");
+
+    await this.service.reactivate(idSync, context);
+
+    return res.status(204).send();
+  }
+
   async delete(req: CustomRequest, res: Response): Promise<e.Response> {
     const { context, params } = getRequestInfo(req);
 

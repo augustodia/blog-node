@@ -16,5 +16,6 @@ export abstract class IPostRepository {
   abstract create(user: Post, context: UserContext): Promise<void>;
   abstract update(entity: Post): Promise<void>;
   abstract inactivate(entity: Post): Promise<void>;
+  abstract reactivate(entity: Post): Promise<void>;
   abstract delete(entity: Post): Promise<void>;
 }

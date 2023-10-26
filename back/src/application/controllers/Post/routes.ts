@@ -16,6 +16,10 @@ router.post(
   "/inactivate/:idSync",
   handleError(controller.inactivate.bind(controller))
 );
+router.post(
+  "/reactivate/:idSync",
+  handleError(controller.reactivate.bind(controller))
+);
 router.delete(
   "/delete/:idSync",
   handleError(controller.delete.bind(controller))

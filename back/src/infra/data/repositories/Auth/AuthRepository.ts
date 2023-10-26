@@ -7,6 +7,17 @@ import AuthUserMapper from "@infra/data/mappers/Auth/AuthUserMapper";
 
 @injectable()
 export class AuthRepository extends BaseRepository implements IAuthRepository {
+  async getUserById(id: string): Promise<AuthUser | undefined> {
+    const result = await this.connection("user")
+      .select<FindAuthUserQueryResponse>("id", "userName", "email", "password")
+      .where("id", id)
+      .andWhere("active", true)
+      .first();
+
+    if (!result) return undefined;
+
+    return AuthUserMapper.mapOne(result);
+  }
   async findByEmail(email: string): Promise<AuthUser | undefined> {
     const result = await this.connection("user")
       .select<FindAuthUserQueryResponse>("id", "userName", "email", "password")

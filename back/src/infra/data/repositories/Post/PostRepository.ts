@@ -237,7 +237,19 @@ export class PostRepository extends BaseRepository implements IPostRepository {
     if (rowsAffected === 0) throw Error("Error while inactivate Post");
   }
 
+  async reactivate(entity: Post): Promise<void> {
+    const rowsAffected = await this.connection("post")
+      .update({
+        active: true,
+      })
+      .where("id", entity.id);
+
+    if (rowsAffected === 0) throw Error("Error while inactivate Post");
+  }
+
   async delete(entity: Post): Promise<void> {
+    await this.connection("postContent").delete().where("postId", entity.id);
+
     const rowsAffected = await this.connection("post")
       .delete()
       .where("id", entity.id);

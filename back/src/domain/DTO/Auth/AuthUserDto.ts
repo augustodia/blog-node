@@ -1,4 +1,4 @@
-export type AuthUserDTO = {
+export type AuthUserDto = {
   id: string;
   userName: string;
   email: string;
