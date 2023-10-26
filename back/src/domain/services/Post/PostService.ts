@@ -33,7 +33,7 @@ export default class PostService implements IPostService {
     dto: PostUpdateDto,
     context: UserContext
   ): Promise<void> {
-    const postToUpdate = await this.repository.findByAndUserId(
+    const postToUpdate = await this.repository.findByWithPermission(
       {
         column: "id",
         value: idSync,
@@ -58,6 +58,34 @@ export default class PostService implements IPostService {
       ),
     });
 
-    await this.repository.update(postToUpdate, context);
+    await this.repository.update(postToUpdate);
+  }
+
+  async inactivate(idSync: string, context: UserContext): Promise<void> {
+    const postToInactive = await this.repository.findByWithPermission(
+      {
+        column: "id",
+        value: idSync,
+      },
+      context
+    );
+
+    if (!postToInactive) throw new EntityNotFound("Post");
+
+    await this.repository.inactivate(postToInactive);
+  }
+
+  async delete(idSync: string, context: UserContext): Promise<void> {
+    const postToDelete = await this.repository.findByWithPermission(
+      {
+        column: "id",
+        value: idSync,
+      },
+      context
+    );
+
+    if (!postToDelete) throw new EntityNotFound("Post");
+
+    await this.repository.delete(postToDelete);
   }
 }

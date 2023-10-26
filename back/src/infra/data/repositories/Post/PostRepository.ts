@@ -48,7 +48,7 @@ export class PostRepository extends BaseRepository implements IPostRepository {
     return PostMapper.mapOne(resultPost, resultPostContent);
   }
 
-  async findByAndUserId(
+  async findByWithPermission(
     where: {
       column: string;
       value: any;
@@ -105,11 +105,11 @@ export class PostRepository extends BaseRepository implements IPostRepository {
     }
   }
 
-  async update(entity: Post, context: UserContext) {
+  async update(entity: Post) {
     const transaction = await this.connection.transaction();
 
     try {
-      const postId = await this.updatePost(entity, context, transaction);
+      const postId = await this.updatePost(entity, transaction);
 
       await this.resolvePostContent(postId, entity.contentBlocks, transaction);
 
@@ -161,7 +161,7 @@ export class PostRepository extends BaseRepository implements IPostRepository {
         id: entity.id,
         title: entity.title,
         published: entity.published,
-        user_id: context.userId,
+        userId: context.userId,
       })
       .transacting(transaction);
 
@@ -173,7 +173,7 @@ export class PostRepository extends BaseRepository implements IPostRepository {
     content: ContentBlock,
     transaction: Knex.Transaction
   ) {
-    await this.connection("post_content")
+    await this.connection("postContent")
       .insert({
         id: content.id,
         content: content.value,
@@ -184,17 +184,12 @@ export class PostRepository extends BaseRepository implements IPostRepository {
       .transacting(transaction);
   }
 
-  private async updatePost(
-    entity: Post,
-    context: UserContext,
-    transaction: Knex.Transaction
-  ) {
+  private async updatePost(entity: Post, transaction: Knex.Transaction) {
     await this.connection("post")
       .update({
         id: entity.id,
         title: entity.title,
         published: entity.published,
-        user_id: context.userId,
       })
       .where("id", entity.id)
       .transacting(transaction);
@@ -230,5 +225,23 @@ export class PostRepository extends BaseRepository implements IPostRepository {
       .transacting(transaction);
 
     if (rowsAffected === 0) throw Error("Error while deleting ContentPost");
+  }
+
+  async inactivate(entity: Post): Promise<void> {
+    const rowsAffected = await this.connection("post")
+      .update({
+        active: false,
+      })
+      .where("id", entity.id);
+
+    if (rowsAffected === 0) throw Error("Error while inactivate Post");
+  }
+
+  async delete(entity: Post): Promise<void> {
+    const rowsAffected = await this.connection("post")
+      .delete()
+      .where("id", entity.id);
+
+    if (rowsAffected === 0) throw Error("Error while inactivate Post");
   }
 }
