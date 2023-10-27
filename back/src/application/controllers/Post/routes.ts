@@ -11,22 +11,22 @@ router.use(authMiddleware);
 const controller = Container.get(IPostController);
 
 router.get("/", handleError(controller.getAll.bind(controller)));
-// router.get("/:idSync", handleError(controller.getById.bind(controller)));
-// router.get("/byUser/:userId", handleError(controller.getByUser.bind(controller)));
+router.get("/:id", handleError(controller.getById.bind(controller)));
+router.get(
+  "/by-user/:userId",
+  handleError(controller.getByUser.bind(controller))
+);
 router.post("/create", handleError(controller.create.bind(controller)));
 router.post("/create", handleError(controller.create.bind(controller)));
-router.put("/update/:idSync", handleError(controller.update.bind(controller)));
+router.put("/update/:id", handleError(controller.update.bind(controller)));
 router.post(
-  "/inactivate/:idSync",
+  "/inactivate/:id",
   handleError(controller.inactivate.bind(controller))
 );
 router.post(
-  "/reactivate/:idSync",
+  "/reactivate/:id",
   handleError(controller.reactivate.bind(controller))
 );
-router.delete(
-  "/delete/:idSync",
-  handleError(controller.delete.bind(controller))
-);
+router.delete("/delete/:id", handleError(controller.delete.bind(controller)));
 
 export default { basePath: "/post", router };

@@ -18,6 +18,30 @@ export default class PostController implements IPostController {
     return res.status(200).send(posts);
   }
 
+  async getById(req: CustomRequest, res: Response) {
+    const { params } = getRequestInfo(req);
+
+    const { id } = params;
+
+    if (!id) return res.status(400).send("id is required");
+
+    const post = await this.service.getById(id);
+
+    return res.status(200).send(post);
+  }
+
+  async getByUser(req: CustomRequest, res: Response) {
+    const { params } = getRequestInfo(req);
+
+    const { userId } = params;
+
+    if (!userId) return res.status(400).send("userId is required");
+
+    const post = await this.service.getByUser(userId);
+
+    return res.status(200).send(post);
+  }
+
   async create(req: CustomRequest, res: Response) {
     const { body, context } = getRequestInfo(req);
 
@@ -31,13 +55,13 @@ export default class PostController implements IPostController {
   async update(req: CustomRequest, res: Response): Promise<Response> {
     const { body, context, params } = getRequestInfo(req);
 
-    const { idSync } = params;
+    const { id } = params;
 
-    if (!idSync) return res.status(400).send("idSync is required");
+    if (!id) return res.status(400).send("id is required");
 
     const dto = PostUpdateSchema.parse(body);
 
-    await this.service.update(idSync, dto, context);
+    await this.service.update(id, dto, context);
 
     return res.status(204).send();
   }
@@ -45,11 +69,11 @@ export default class PostController implements IPostController {
   async inactivate(req: CustomRequest, res: Response): Promise<Response> {
     const { context, params } = getRequestInfo(req);
 
-    const { idSync } = params;
+    const { id } = params;
 
-    if (!idSync) return res.status(400).send("idSync is required");
+    if (!id) return res.status(400).send("id is required");
 
-    await this.service.inactivate(idSync, context);
+    await this.service.inactivate(id, context);
 
     return res.status(204).send();
   }
@@ -57,11 +81,11 @@ export default class PostController implements IPostController {
   async reactivate(req: CustomRequest, res: Response): Promise<Response> {
     const { context, params } = getRequestInfo(req);
 
-    const { idSync } = params;
+    const { id } = params;
 
-    if (!idSync) return res.status(400).send("idSync is required");
+    if (!id) return res.status(400).send("id is required");
 
-    await this.service.reactivate(idSync, context);
+    await this.service.reactivate(id, context);
 
     return res.status(204).send();
   }
@@ -69,11 +93,11 @@ export default class PostController implements IPostController {
   async delete(req: CustomRequest, res: Response): Promise<e.Response> {
     const { context, params } = getRequestInfo(req);
 
-    const { idSync } = params;
+    const { id } = params;
 
-    if (!idSync) return res.status(400).send("idSync is required");
+    if (!id) return res.status(400).send("id is required");
 
-    await this.service.delete(idSync, context);
+    await this.service.delete(id, context);
 
     return res.status(200).send();
   }

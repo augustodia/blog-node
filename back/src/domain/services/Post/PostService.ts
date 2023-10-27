@@ -1,7 +1,13 @@
 import { injectable } from "inversify";
 import { ContentBlock, Post, PostAuthor } from "@entities";
 import { IPostRepository, IPostService } from "@interfaces";
-import { PostCreateDto, PostTeaserDto, PostUpdateDto, UserContext } from "@DTO";
+import {
+  PostCreateDto,
+  PostDto,
+  PostTeaserDto,
+  PostUpdateDto,
+  UserContext,
+} from "@DTO";
 import EntityNotFound from "../../@shared/errors/EntityNotFound";
 
 @injectable()
@@ -10,6 +16,20 @@ export default class PostService implements IPostService {
 
   async getAll(): Promise<PostTeaserDto[]> {
     const posts = await this.repository.getAll();
+
+    return posts.map((post) => post.toTeaserDto());
+  }
+
+  async getById(id: string): Promise<PostDto> {
+    const post = await this.repository.findBy({ column: "id", value: id });
+
+    if (!post) throw new EntityNotFound("post");
+
+    return post.toDto();
+  }
+
+  async getByUser(userId: string): Promise<PostTeaserDto[]> {
+    const posts = await this.repository.getByUser(userId);
 
     return posts.map((post) => post.toTeaserDto());
   }
@@ -36,14 +56,14 @@ export default class PostService implements IPostService {
   }
 
   async update(
-    idSync: string,
+    id: string,
     dto: PostUpdateDto,
     context: UserContext
   ): Promise<void> {
     const postToUpdate = await this.repository.findByWithPermission(
       {
         column: "id",
-        value: idSync,
+        value: id,
       },
       context
     );
@@ -69,11 +89,11 @@ export default class PostService implements IPostService {
     await this.repository.update(postToUpdate);
   }
 
-  async inactivate(idSync: string, context: UserContext): Promise<void> {
+  async inactivate(id: string, context: UserContext): Promise<void> {
     const postToInactivete = await this.repository.findByWithPermission(
       {
         column: "id",
-        value: idSync,
+        value: id,
       },
       context
     );
@@ -83,13 +103,14 @@ export default class PostService implements IPostService {
     await this.repository.inactivate(postToInactivete);
   }
 
-  async reactivate(idSync: string, context: UserContext): Promise<void> {
+  async reactivate(id: string, context: UserContext): Promise<void> {
     const postToActivate = await this.repository.findByWithPermission(
       {
         column: "id",
-        value: idSync,
+        value: id,
       },
-      context
+      context,
+      false
     );
 
     if (!postToActivate) throw new EntityNotFound("Post");
@@ -97,13 +118,14 @@ export default class PostService implements IPostService {
     await this.repository.reactivate(postToActivate);
   }
 
-  async delete(idSync: string, context: UserContext): Promise<void> {
+  async delete(id: string, context: UserContext): Promise<void> {
     const postToDelete = await this.repository.findByWithPermission(
       {
         column: "id",
-        value: idSync,
+        value: id,
       },
-      context
+      context,
+      false
     );
 
     if (!postToDelete) throw new EntityNotFound("Post");

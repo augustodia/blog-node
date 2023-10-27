@@ -29,7 +29,8 @@ export class PostRepository extends BaseRepository implements IPostRepository {
         this.on("user.id", "post.userId").andOnVal("user.active", true);
       })
       .where("post.active", true)
-      .andWhere("post.published", true);
+      .andWhere("post.published", true)
+      .orderBy("post.createdAt");
 
     const postIds = [...new Set(result.map(({ id }) => id))];
 
@@ -43,14 +44,18 @@ export class PostRepository extends BaseRepository implements IPostRepository {
         "visible"
       )
       .where("visible", true)
-      .whereIn("postId", postIds);
+      .whereIn("postId", postIds)
+      .orderBy("order");
 
     return PostMapper.mapMany(result, resultPostContents);
   }
-  async findBy(where: {
-    column: string;
-    value: any;
-  }): Promise<Post | undefined> {
+  async findBy(
+    where: {
+      column: string;
+      value: any;
+    },
+    onlyActive: boolean = true
+  ): Promise<Post | undefined> {
     const resultPost = await this.connection("post")
       .select<GetPostQueryResponse>(
         this.connection.ref("post.id").as("id"),
@@ -65,7 +70,11 @@ export class PostRepository extends BaseRepository implements IPostRepository {
         this.on("user.id", "post.userId").andOnVal("user.active", true);
       })
       .where((builder) => {
-        builder.where(where.column, where.value);
+        builder.where(`post.${where.column}`, where.value);
+
+        if (onlyActive) {
+          builder.where("post.active", true).andWhere("post.published", true);
+        }
       })
       .first();
 
@@ -80,9 +89,51 @@ export class PostRepository extends BaseRepository implements IPostRepository {
         "type",
         "visible"
       )
-      .where("postId", resultPost.id);
+      .where((builder) => {
+        if (onlyActive) {
+          builder.where("visible", true);
+        }
+      })
+      .andWhere("postId", resultPost.id);
 
     return PostMapper.mapOne(resultPost, resultPostContent);
+  }
+
+  async getByUser(userId: string): Promise<Post[]> {
+    const result = await this.connection("post")
+      .select<GetPostQueryResponse[]>(
+        this.connection.ref("post.id").as("id"),
+        this.connection.ref("post.title").as("title"),
+        this.connection.ref("post.createdAt").as("createdAt"),
+        this.connection.ref("post.published").as("published"),
+        this.connection.ref("post.updatedAt").as("updatedAt"),
+        this.connection.ref("user.id").as("authorId"),
+        this.connection.ref("user.userName").as("authorUserName")
+      )
+      .innerJoin("user", function innerJoinUser() {
+        this.on("user.id", "post.userId").andOnVal("user.active", true);
+      })
+      .where("post.active", true)
+      .andWhere("post.published", true)
+      .andWhere("user.id", userId)
+      .orderBy("post.createdAt");
+
+    const postIds = [...new Set(result.map(({ id }) => id))];
+
+    const resultPostContents = await this.connection("postContent")
+      .select<GetPostContentQueryResponse[]>(
+        "id",
+        "postId",
+        "order",
+        "content",
+        "type",
+        "visible"
+      )
+      .where("visible", true)
+      .whereIn("postId", postIds)
+      .orderBy("order");
+
+    return PostMapper.mapMany(result, resultPostContents);
   }
 
   async findByWithPermission(
@@ -90,7 +141,8 @@ export class PostRepository extends BaseRepository implements IPostRepository {
       column: string;
       value: any;
     },
-    context: UserContext
+    context: UserContext,
+    onlyActive: boolean = true
   ): Promise<Post | undefined> {
     const resultPost = await this.connection("post")
       .select<GetPostQueryResponse>(
@@ -107,6 +159,10 @@ export class PostRepository extends BaseRepository implements IPostRepository {
       })
       .where((builder) => {
         builder.where(where.column, where.value);
+
+        if (onlyActive) {
+          builder.where("post.active", true).andWhere("post.published", true);
+        }
       })
       .andWhere("userId", context.userId)
       .first();
@@ -122,6 +178,11 @@ export class PostRepository extends BaseRepository implements IPostRepository {
         "type",
         "visible"
       )
+      .where((builder) => {
+        if (onlyActive) {
+          builder.where("visible", true);
+        }
+      })
       .where("postId", resultPost.id);
 
     return PostMapper.mapOne(resultPost, resultPostContent);
@@ -166,7 +227,10 @@ export class PostRepository extends BaseRepository implements IPostRepository {
     newContentBlocks: ContentBlock[],
     transaction: Knex.Transaction
   ) {
-    const postToUpdate = await this.findBy({ column: "id", value: postId });
+    const postToUpdate = await this.findBy(
+      { column: "id", value: postId },
+      false
+    );
 
     if (!postToUpdate) throw Error("Error while get Entity");
 
