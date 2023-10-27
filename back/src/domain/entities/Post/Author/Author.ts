@@ -1,14 +1,14 @@
 import { IEntity, IEntityProps } from "@interfaces/entities/IEntity";
 import { PostAuthorDto } from "@DTO";
 
-export interface IPostAuthor extends IEntityProps {
+export interface IAuthor extends IEntityProps {
   id?: string;
   userName: string;
 }
 
-export class PostAuthor extends IEntity {
+export class Author extends IEntity {
   private readonly _userName: string;
-  constructor(props: IPostAuthor) {
+  constructor(props: IAuthor) {
     super(props);
 
     this._userName = props.userName;

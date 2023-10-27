@@ -1,1 +1,1 @@
-export * from "./PostAuthor";
+export * from "./Author";

@@ -1,19 +1,19 @@
 import { IEntity, IEntityProps } from "@interfaces/entities/IEntity";
-import { ContentBlock, PostAuthor } from "./";
+import { ContentBlock, Author } from "./";
 import { PostDto, PostTeaserDto } from "@DTO";
 
 export interface IPost extends IEntityProps {
   id?: string;
   title: string;
   published: boolean;
-  author: PostAuthor;
+  author: Author;
   contentBlocks: ContentBlock[];
 }
 
 export class Post extends IEntity {
   private _title: string;
   private _published: boolean;
-  private readonly _author: PostAuthor;
+  private readonly _author: Author;
   private _contentBlocks: ContentBlock[];
 
   constructor(props: IPost) {
@@ -33,7 +33,7 @@ export class Post extends IEntity {
     return this._title;
   }
 
-  get author(): PostAuthor {
+  get author(): Author {
     return this._author;
   }
 

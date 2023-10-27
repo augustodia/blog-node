@@ -2,7 +2,7 @@ import {
   GetPostContentQueryResponse,
   GetPostQueryResponse,
 } from "@infra/data/query-responses";
-import { ContentBlock, Post, PostAuthor } from "@entities";
+import { ContentBlock, Post, Author } from "@entities";
 
 export default class PostMapper {
   static mapOne(
@@ -25,7 +25,7 @@ export default class PostMapper {
     return new Post({
       id: postResult.id,
       title: postResult.title,
-      author: new PostAuthor({
+      author: new Author({
         id: postResult.authorId,
         userName: postResult.authorUserName,
       }),
@@ -59,7 +59,7 @@ export default class PostMapper {
       return new Post({
         id: post.id,
         title: post.title,
-        author: new PostAuthor({
+        author: new Author({
           id: post.authorId,
           userName: post.authorUserName,
         }),

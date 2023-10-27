@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { ContentBlock, Post, PostAuthor } from "@entities";
+import { ContentBlock, Post, Author } from "@entities";
 import { IPostRepository, IPostService } from "@interfaces";
 import {
   PostCreateDto,
@@ -47,7 +47,7 @@ export default class PostService implements IPostService {
 
     const postToCreate = new Post({
       title: dto.title,
-      author: new PostAuthor({ id: context.userId, userName: "" }),
+      author: new Author({ id: context.userId, userName: "" }),
       published: dto.published,
       contentBlocks,
     });
@@ -73,7 +73,7 @@ export default class PostService implements IPostService {
     postToUpdate.update({
       title: dto.title,
       published: dto.published,
-      author: new PostAuthor({ id: context.userId, userName: "" }),
+      author: new Author({ id: context.userId, userName: "" }),
       contentBlocks: dto.contentBlocks?.map(
         (contentBlockDto) =>
           new ContentBlock({
