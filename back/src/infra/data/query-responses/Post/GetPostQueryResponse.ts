@@ -1,8 +1,9 @@
-export type FindPostQueryResponse = {
+export type GetPostQueryResponse = {
   id: string;
-  userId: string;
   title: string;
   published: number;
   createdAt: Date;
   updatedAt: Date | null;
+  authorId: string;
+  authorUserName: string;
 };

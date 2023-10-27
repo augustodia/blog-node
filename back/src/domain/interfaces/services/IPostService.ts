@@ -1,6 +1,7 @@
-import { PostCreateDto, UserContext, PostUpdateDto } from "@DTO";
+import { PostCreateDto, UserContext, PostUpdateDto, PostTeaserDto } from "@DTO";
 
 export abstract class IPostService {
+  abstract getAll(): Promise<PostTeaserDto[]>;
   abstract create(dto: PostCreateDto, context: UserContext): Promise<void>;
   abstract update(
     idSync: string,

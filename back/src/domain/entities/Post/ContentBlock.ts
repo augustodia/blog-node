@@ -1,4 +1,5 @@
 import { IEntity, IEntityProps } from "@interfaces/entities/IEntity";
+import { ContentBlockDto } from "@DTO";
 
 export enum ContentBlockTypeEnum {
   Text = "text",
@@ -56,5 +57,14 @@ export class ContentBlock extends IEntity {
 
   set type(type) {
     this._type = type;
+  }
+
+  public toDto(): ContentBlockDto {
+    return {
+      id: this.id,
+      order: this.order,
+      type: this.type,
+      value: this.value,
+    };
   }
 }

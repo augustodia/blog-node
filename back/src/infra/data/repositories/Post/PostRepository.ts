@@ -5,8 +5,8 @@ import { ContentBlock, Post } from "@entities";
 import { UserContext } from "@DTO";
 import { Knex } from "knex";
 import {
-  FindPostContentQueryResponse,
-  FindPostQueryResponse,
+  GetPostContentQueryResponse,
+  GetPostQueryResponse,
 } from "@infra/data/query-responses";
 import PostMapper from "@infra/data/mappers/Post/PostMapper";
 
@@ -14,19 +14,56 @@ import { getDifferencesInListsOfObjects } from "../../../../helpers/getDifferenc
 
 @injectable()
 export class PostRepository extends BaseRepository implements IPostRepository {
+  async getAll(): Promise<Post[]> {
+    const result = await this.connection("post")
+      .select<GetPostQueryResponse[]>(
+        this.connection.ref("post.id").as("id"),
+        this.connection.ref("post.title").as("title"),
+        this.connection.ref("post.createdAt").as("createdAt"),
+        this.connection.ref("post.published").as("published"),
+        this.connection.ref("post.updatedAt").as("updatedAt"),
+        this.connection.ref("user.id").as("authorId"),
+        this.connection.ref("user.userName").as("authorUserName")
+      )
+      .innerJoin("user", function innerJoinUser() {
+        this.on("user.id", "post.userId").andOnVal("user.active", true);
+      })
+      .where("post.active", true)
+      .andWhere("post.published", true);
+
+    const postIds = [...new Set(result.map(({ id }) => id))];
+
+    const resultPostContents = await this.connection("postContent")
+      .select<GetPostContentQueryResponse[]>(
+        "id",
+        "postId",
+        "order",
+        "content",
+        "type",
+        "visible"
+      )
+      .where("visible", true)
+      .whereIn("postId", postIds);
+
+    return PostMapper.mapMany(result, resultPostContents);
+  }
   async findBy(where: {
     column: string;
     value: any;
   }): Promise<Post | undefined> {
     const resultPost = await this.connection("post")
-      .select<FindPostQueryResponse>(
-        "id",
-        "userId",
-        "title",
-        "published",
-        "createdAt",
-        "updatedAt"
+      .select<GetPostQueryResponse>(
+        this.connection.ref("post.id").as("id"),
+        this.connection.ref("post.title").as("title"),
+        this.connection.ref("post.createdAt").as("createdAt"),
+        this.connection.ref("post.published").as("published"),
+        this.connection.ref("post.updatedAt").as("updatedAt"),
+        this.connection.ref("user.id").as("authorId"),
+        this.connection.ref("user.userName").as("authorUserName")
       )
+      .innerJoin("user", function innerJoinUser() {
+        this.on("user.id", "post.userId").andOnVal("user.active", true);
+      })
       .where((builder) => {
         builder.where(where.column, where.value);
       })
@@ -35,7 +72,7 @@ export class PostRepository extends BaseRepository implements IPostRepository {
     if (!resultPost) return undefined;
 
     const resultPostContent = await this.connection("postContent")
-      .select<FindPostContentQueryResponse[]>(
+      .select<GetPostContentQueryResponse[]>(
         "id",
         "postId",
         "order",
@@ -56,14 +93,18 @@ export class PostRepository extends BaseRepository implements IPostRepository {
     context: UserContext
   ): Promise<Post | undefined> {
     const resultPost = await this.connection("post")
-      .select<FindPostQueryResponse>(
-        "id",
-        "userId",
-        "title",
-        "published",
-        "createdAt",
-        "updatedAt"
+      .select<GetPostQueryResponse>(
+        this.connection.ref("post.id").as("id"),
+        this.connection.ref("post.title").as("title"),
+        this.connection.ref("post.createdAt").as("createdAt"),
+        this.connection.ref("post.published").as("published"),
+        this.connection.ref("post.updatedAt").as("updatedAt"),
+        this.connection.ref("user.id").as("authorId"),
+        this.connection.ref("user.userName").as("authorUserName")
       )
+      .innerJoin("user", function innerJoinUser() {
+        this.on("user.id", "post.userId").andOnVal("user.active", true);
+      })
       .where((builder) => {
         builder.where(where.column, where.value);
       })
@@ -73,7 +114,7 @@ export class PostRepository extends BaseRepository implements IPostRepository {
     if (!resultPost) return undefined;
 
     const resultPostContent = await this.connection("postContent")
-      .select<FindPostContentQueryResponse[]>(
+      .select<GetPostContentQueryResponse[]>(
         "id",
         "postId",
         "order",

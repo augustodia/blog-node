@@ -1,6 +1,6 @@
 import { ContentBlockTypeEnum } from "@entities";
 
-export type FindPostContentQueryResponse = {
+export type GetPostContentQueryResponse = {
   id: string;
   postId: string;
   order: number;

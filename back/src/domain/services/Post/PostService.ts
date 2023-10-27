@@ -1,12 +1,18 @@
 import { injectable } from "inversify";
-import { ContentBlock, Post } from "@entities";
+import { ContentBlock, Post, PostAuthor } from "@entities";
 import { IPostRepository, IPostService } from "@interfaces";
-import { PostCreateDto, PostUpdateDto, UserContext } from "@DTO";
+import { PostCreateDto, PostTeaserDto, PostUpdateDto, UserContext } from "@DTO";
 import EntityNotFound from "../../@shared/errors/EntityNotFound";
 
 @injectable()
 export default class PostService implements IPostService {
   constructor(private repository: IPostRepository) {}
+
+  async getAll(): Promise<PostTeaserDto[]> {
+    const posts = await this.repository.getAll();
+
+    return posts.map((post) => post.toTeaserDto());
+  }
 
   async create(dto: PostCreateDto, context: UserContext) {
     const contentBlocks = dto.contentBlocks?.map(
@@ -21,6 +27,7 @@ export default class PostService implements IPostService {
 
     const postToCreate = new Post({
       title: dto.title,
+      author: new PostAuthor({ id: context.userId, userName: "" }),
       published: dto.published,
       contentBlocks,
     });
@@ -46,6 +53,7 @@ export default class PostService implements IPostService {
     postToUpdate.update({
       title: dto.title,
       published: dto.published,
+      author: new PostAuthor({ id: context.userId, userName: "" }),
       contentBlocks: dto.contentBlocks?.map(
         (contentBlockDto) =>
           new ContentBlock({

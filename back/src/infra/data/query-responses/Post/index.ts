@@ -1,2 +1,2 @@
-export * from "./FindPostQueryResponse";
-export * from "./FindPostContentQueryResponse";
+export * from "./GetPostContentQueryResponse";
+export * from "./GetPostQueryResponse";

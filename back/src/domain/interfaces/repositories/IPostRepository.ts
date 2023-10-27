@@ -2,6 +2,7 @@ import { Post } from "@entities";
 import { UserContext } from "@DTO";
 
 export abstract class IPostRepository {
+  abstract getAll(): Promise<Post[]>;
   abstract findBy(where: {
     column: string;
     value: any;
