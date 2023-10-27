@@ -1,0 +1,411 @@
+{
+	"info": {
+		"_postman_id": "f0e9d6fe-99c8-495e-b6ce-366f6926e3da",
+		"name": "BLOG",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27611205"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userName\": \"admins\",\n    \"email\": \"augusto@admisn.com\",\n    \"password\": \"S@2848786\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/create",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find User By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/user/01d82859-0256-41a9-9731-b0d53c557b27",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"01d82859-0256-41a9-9731-b0d53c557b27"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "Get All Posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/post/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"post",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Post ById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/post/78bb92fc-b86f-4b5b-8e12-9a9514b697dc",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"post",
+								"78bb92fc-b86f-4b5b-8e12-9a9514b697dc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Posts Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/post/by-user/187ea04c-58f5-42d4-9312-baaca0daf8f8",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"post",
+								"by-user",
+								"187ea04c-58f5-42d4-9312-baaca0daf8f8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Título de teste 3\",\n    \"published\": true,\n    \"contentBlocks\": [\n        {\n            \"value\": \"Texto pequeno\",\n            \"visible\": true,\n            \"order\": 1,\n            \"type\": \"text\"\n        },\n        {\n            \"value\": \"Texto grande 2\",\n            \"visible\": false,\n            \"order\": 2,\n            \"type\": \"text\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/post/create",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"post",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Post",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Título de teste mudado\",\n    \"published\": false,\n    \"contentBlocks\": [\n        {\n            \"id\": \"0bd17229-4863-4176-950c-8ed39e57c57d\",\n            \"value\": \"Item mudado 1\",\n            \"visible\": false,\n            \"order\": 1,\n            \"type\": \"text\"\n        },\n        {\n            \"id\": \"d7f67fca-859d-422d-8a17-b1aef0cae40c\",\n            \"value\": \"Item mudado 2\",\n            \"visible\": true,\n            \"order\": 2,\n            \"type\": \"text\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/post/update/635cc509-41ea-479c-a2e4-8a73828f74c9",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"post",
+								"update",
+								"635cc509-41ea-479c-a2e4-8a73828f74c9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inactivate Post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/post/inactivate/635cc509-41ea-479c-a2e4-8a73828f74c9",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"post",
+								"inactivate",
+								"635cc509-41ea-479c-a2e4-8a73828f74c9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reactivate Post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/post/reactivate/635cc509-41ea-479c-a2e4-8a73828f74c9",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"post",
+								"reactivate",
+								"635cc509-41ea-479c-a2e4-8a73828f74c9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Post",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/post/delete/635cc509-41ea-479c-a2e4-8a73828f74c9",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"post",
+								"delete",
+								"635cc509-41ea-479c-a2e4-8a73828f74c9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set('accessToken', jsonData.token);",
+									"    pm.environment.set('refreshToken', jsonData.refreshToken);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"augusto@admin.com\",\n    \"password\": \"S@2848786\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set('accessToken', jsonData.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"{{refreshToken}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/refresh-token",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/ping",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{accessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
