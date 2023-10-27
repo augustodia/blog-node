@@ -10,6 +10,7 @@ export type RequestInfo<T> = {
 
 export function getRequestInfo<T>(req: CustomRequest): RequestInfo<T> {
   const { body, context, params } = req;
+
   if (!context) throw new UnauthorizedError("User No Logged");
 
   return {

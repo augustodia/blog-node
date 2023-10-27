@@ -3,7 +3,6 @@ import { injectable } from "inversify";
 import IUserController from "@application/controllers/@shared/interfaces/IUserController";
 import { IUserService } from "@interfaces";
 import { UserCreateSchema } from "@DTO";
-import { getRequestInfo } from "@application/controllers/@shared/helpers/getRequestInfo";
 
 @injectable()
 export default class UserController implements IUserController {
@@ -20,7 +19,7 @@ export default class UserController implements IUserController {
   }
 
   async findUser(req: Request, res: Response) {
-    const { params } = getRequestInfo(req);
+    const { params } = req;
 
     const { id } = params;
 

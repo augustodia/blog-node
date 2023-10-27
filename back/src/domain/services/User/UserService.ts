@@ -14,7 +14,7 @@ export default class UserService implements IUserService {
 
     if (!user) throw new EntityNotFound("User");
 
-    return user;
+    return user.toDto();
   }
 
   async create(dto: UserCreateDto) {

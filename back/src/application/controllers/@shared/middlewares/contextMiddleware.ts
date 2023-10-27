@@ -25,7 +25,9 @@ export default async function contextMiddleware(
 ): Promise<void> {
   if (req.userId) {
     try {
-      req.context = await mountContext(req.userId);
+      const context = await mountContext(req.userId);
+
+      req.context = context;
     } catch (error) {
       next(new UnauthorizedError("Invalid Credentials"));
 
