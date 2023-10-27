@@ -10,6 +10,10 @@ router.use(authMiddleware);
 
 const controller = Container.get(IPostController);
 
+router.get("/", handleError(controller.getAll.bind(controller)));
+// router.get("/:idSync", handleError(controller.getById.bind(controller)));
+// router.get("/byUser/:userId", handleError(controller.getByUser.bind(controller)));
+router.post("/create", handleError(controller.create.bind(controller)));
 router.post("/create", handleError(controller.create.bind(controller)));
 router.put("/update/:idSync", handleError(controller.update.bind(controller)));
 router.post(

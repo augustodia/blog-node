@@ -12,6 +12,12 @@ import { PostCreateSchema, PostUpdateSchema } from "@DTO";
 export default class PostController implements IPostController {
   constructor(private service: IPostService) {}
 
+  async getAll(req: CustomRequest, res: Response) {
+    const posts = await this.service.getAll();
+
+    return res.status(200).send(posts);
+  }
+
   async create(req: CustomRequest, res: Response) {
     const { body, context } = getRequestInfo(req);
 
