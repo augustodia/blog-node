@@ -7,6 +7,7 @@ const router = Router();
 
 const controller = Container.get(IUserController);
 
+router.get("/:id", handleError(controller.findUser.bind(controller)));
 router.post("/create", handleError(controller.create.bind(controller)));
 
 export default { basePath: "/user", router };

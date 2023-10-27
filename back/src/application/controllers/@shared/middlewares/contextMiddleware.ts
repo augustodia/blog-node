@@ -13,8 +13,6 @@ async function mountContext(userId: string): Promise<UserContext> {
 
   const user = await userService.findById(userId);
 
-  if (!user) throw new UnauthorizedError("Invalid Credentials");
-
   return {
     userId: user.id,
   };
@@ -27,9 +25,7 @@ export default async function contextMiddleware(
 ): Promise<void> {
   if (req.userId) {
     try {
-      const response = await mountContext(req.userId);
-
-      req.context = response;
+      req.context = await mountContext(req.userId);
     } catch (error) {
       next(new UnauthorizedError("Invalid Credentials"));
 

@@ -1,4 +1,5 @@
 import { IEntity, IEntityProps } from "@interfaces/entities/IEntity";
+import { UserDto } from "@DTO";
 
 export interface IUser extends IEntityProps {
   id?: string;
@@ -30,5 +31,12 @@ export class User extends IEntity {
 
   get hashPassword(): string | undefined {
     return this._hashPassword;
+  }
+
+  public toDto(): UserDto {
+    return {
+      id: this.id,
+      userName: this.userName,
+    };
   }
 }

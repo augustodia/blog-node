@@ -16,10 +16,13 @@ export class UserRepository extends BaseRepository implements IUserRepository {
     });
   }
 
-  async findBy(where: {
-    column: string;
-    value: any;
-  }): Promise<User | undefined> {
+  async findBy(
+    where: {
+      column: string;
+      value: any;
+    },
+    onlyActive: boolean = true
+  ): Promise<User | undefined> {
     const result = await this.connection("user")
       .select<FindUserQueryResponse>(
         "id",
@@ -30,6 +33,8 @@ export class UserRepository extends BaseRepository implements IUserRepository {
       )
       .where((builder) => {
         builder.where(where.column, where.value);
+
+        if (onlyActive) builder.where("active", true);
       })
       .first();
 

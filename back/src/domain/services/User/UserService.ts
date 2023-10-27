@@ -3,13 +3,18 @@ import { hash, genSalt } from "bcryptjs";
 import { User } from "@entities";
 import { IUserRepository, IUserService } from "@interfaces";
 import { UserCreateDto } from "@DTO";
+import EntityNotFound from "../../@shared/errors/EntityNotFound";
 
 @injectable()
 export default class UserService implements IUserService {
   constructor(private repository: IUserRepository) {}
 
-  async findById(userId: string): Promise<User | undefined> {
-    return this.repository.findBy({ column: "id", value: userId });
+  async findById(userId: string) {
+    const user = await this.repository.findBy({ column: "id", value: userId });
+
+    if (!user) throw new EntityNotFound("User");
+
+    return user;
   }
 
   async create(dto: UserCreateDto) {
