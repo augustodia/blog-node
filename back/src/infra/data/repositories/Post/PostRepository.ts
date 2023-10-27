@@ -1,9 +1,9 @@
 import { injectable } from "inversify";
+import { Knex } from "knex";
 import BaseRepository from "@infra/data/repositories/BaseRepository";
 import { IPostRepository } from "@interfaces";
 import { ContentBlock, Post } from "@entities";
 import { UserContext } from "@DTO";
-import { Knex } from "knex";
 import {
   GetPostContentQueryResponse,
   GetPostQueryResponse,
