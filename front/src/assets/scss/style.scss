@@ -1,0 +1,53 @@
+@import "variables";
+
+/* Configurações de esquema de cores e fundo */
+html {
+  color-scheme: light dark;
+  background-color: var(--black-default);
+}
+
+/* Configurações globais */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: var(--white-default);
+  transition: all .2s;
+}
+
+/* Configurações de fonte */
+body {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* Configurações de altura */
+html, body, #app {
+  height: 100%;
+}
+
+/* Configurações de imagem */
+img {
+  display: block;
+  width: 100%;
+}
+
+/* Configurações do aplicativo */
+#app {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Configurações de foco para textarea e input */
+textarea:focus, input:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+/* Configurações para hover em links */
+a:hover {
+  color: var(--primary-color);
+}
