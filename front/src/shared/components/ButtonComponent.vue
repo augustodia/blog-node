@@ -38,7 +38,6 @@ const textStyle = computed(() => ({color: `var(${colors[props.type].color})`}))
 const loadingStyle = computed(() => ({borderTopColor: `var(${colors[props.type].color})`}))
 
 watch(() => props.loading, (value) => {
-  console.log(value)
   if(value) {
     button.value?.classList.add('is-loading');
     loading.value?.classList.add('active');

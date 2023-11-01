@@ -4,11 +4,9 @@
 
 <template>
   <main id="auth-page">
-    <div class="logo">
-      <img src="../assets/vue.svg" alt="Logotipo Vue"/>
-    </div>
+    <h1>Default Template</h1>
 
-    <section id="auth-page-content">
+    <section id="page-content">
       <router-view></router-view>
     </section>
   </main>
@@ -25,14 +23,8 @@
   height: 100%;
 }
 
-#auth-page-content {
+#page-content {
   width: 100%;
 }
 
-.logo {
-  width: 100px;
-  height: 100px;
-
-  margin-bottom: 32px;
-}
 </style>

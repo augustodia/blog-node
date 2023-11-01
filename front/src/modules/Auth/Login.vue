@@ -1,15 +1,24 @@
 <script setup lang="ts">
 import {ref} from "vue";
+import {useRouter} from "vue-router";
+import AuthService from "@/services/auth";
 
 import TextField from "../../shared/components/TextField.vue";
 import ButtonComponent from "../../shared/components/ButtonComponent.vue";
 
+const router = useRouter()
 const loading = ref(false);
 
 const login = () => {
+  AuthService.login('a', 'a');
   loading.value = true;
 
-  setTimeout(() => loading.value = false,5000);
+  setTimeout(() => {
+    router.push({
+      name: 'home'
+    });
+    loading.value = false
+  },5000);
 }
 
 </script>

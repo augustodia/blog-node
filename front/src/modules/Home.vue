@@ -3,8 +3,9 @@
 </script>
 
 <template>
-  <router-view></router-view>
+<h2>Eu sou a Home!!!</h2>
 </template>
 
 <style scoped>
+
 </style>
