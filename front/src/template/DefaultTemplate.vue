@@ -30,9 +30,10 @@ const goBack = () => {
 <template>
   <main id="default-page">
     <header id="menu">
-      <div v-if="hasGoBackBtn" class="go-back">
-        <font-awesome-icon icon="fa-solid fa-arrow-left" size="2xl" @click="goBack"/>
+      <div v-if="hasGoBackBtn" class="go-back" @click="goBack">
+        <font-awesome-icon icon="fa-solid fa-arrow-left" size="2xl"/>
       </div>
+
       <div class="auth-btns">
         <template v-if="hasLogged">
           <button-component class="btn-profile" :title="userName"/>
