@@ -17,7 +17,7 @@ export default class AuthController implements IAuthController {
 
     const token = jwt.sign({}, process.env.JWT_SECRET as string, {
       subject: user.id,
-      expiresIn: "15m",
+      expiresIn: "1m",
     });
 
     const refreshToken = jwt.sign({}, process.env.JWT_SECRET as string, {

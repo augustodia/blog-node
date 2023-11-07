@@ -4,7 +4,7 @@
 
 <template>
   <main id="auth-page">
-    <h1>Default Template</h1>
+    <h1>Menu</h1>
 
     <section id="page-content">
       <router-view></router-view>
@@ -16,9 +16,6 @@
 #auth-page {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
   width: 100%;
   height: 100%;
 }

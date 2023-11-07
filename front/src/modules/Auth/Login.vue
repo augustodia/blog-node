@@ -7,26 +7,30 @@ import TextField from "../../shared/components/TextField.vue";
 import ButtonComponent from "../../shared/components/ButtonComponent.vue";
 
 const router = useRouter()
-const loading = ref(false);
+const loading = ref<boolean>(false);
+const email = ref<string>('');
+const password = ref<string>('');
 
-const login = () => {
-  AuthService.login('a', 'a');
-  loading.value = true;
-
-  setTimeout(() => {
+const login = async () => {
+  try {
+    loading.value = true;
+    await AuthService.login({email: email.value, password: password.value});
     router.push({
       name: 'home'
     });
-    loading.value = false
-  },5000);
+
+  } catch(e) {
+  } finally {
+    loading.value = false;
+  }
 }
 
 </script>
 
 <template>
   <section id="login-page">
-    <text-field name="email" title="Email" />
-    <text-field name="password" title="Senha" type="password"/>
+    <text-field name="email" title="Email" type="email" v-model="email"/>
+    <text-field name="password" title="Senha" type="password" v-model="password"/>
     <a id="new-account" href="#">Não tem uma conta? Cadastre-se</a>
 
     <button-component title="ENTRAR" :loading="loading" @click="login"/>

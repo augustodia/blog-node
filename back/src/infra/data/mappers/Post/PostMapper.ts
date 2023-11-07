@@ -17,8 +17,8 @@ export default class PostMapper {
           type: content.type,
           visible: content.visible === 1,
           value: content.content,
-          createdAt: content.createdAt,
-          updatedAt: content.updatedAt,
+          createdAt: new Date(content.createdAt),
+          updatedAt: content.updatedAt ? new Date(content.updatedAt) : null,
         })
     );
 
@@ -30,8 +30,8 @@ export default class PostMapper {
         userName: postResult.authorUserName,
       }),
       published: postResult.published === 1,
-      createdAt: postResult.createdAt,
-      updatedAt: postResult.updatedAt,
+      createdAt: new Date(postResult.createdAt),
+      updatedAt: postResult.updatedAt ? new Date(postResult.updatedAt) : null,
       contentBlocks,
     });
   }
@@ -51,8 +51,8 @@ export default class PostMapper {
               type: content.type,
               visible: content.visible === 1,
               value: content.content,
-              createdAt: content.createdAt,
-              updatedAt: content.updatedAt,
+              createdAt: new Date(content.createdAt),
+              updatedAt: content.updatedAt ? new Date(content.updatedAt) : null,
             })
         );
 
@@ -64,8 +64,8 @@ export default class PostMapper {
           userName: post.authorUserName,
         }),
         published: post.published === 1,
-        createdAt: post.createdAt,
-        updatedAt: post.updatedAt,
+        createdAt: new Date(post.createdAt),
+        updatedAt: post.updatedAt ? new Date(post.updatedAt) : null,
         contentBlocks,
       });
     });

@@ -1,8 +1,8 @@
 import http from './httpClient';
 
-export async function login(username: string, password: string) {
-    const { data } = await http.post('/auth/login', { username, password });
-    localStorage.setItem('accessToken', data.accessToken);
+export async function login(credentials: {email: string, password: string}) {
+    const { data } = await http.post('/auth/login', credentials);
+    localStorage.setItem('accessToken', data.token);
     localStorage.setItem('refreshToken', data.refreshToken);
 }
 
@@ -13,8 +13,8 @@ export async function refreshToken() {
         throw new Error('No refresh token found');
     }
 
-    const { data } = await http.post('/refresh-token', { token: refreshToken });
-    localStorage.setItem('accessToken', data.accessToken); // armazene o novo access token no local storage
+    const { data } = await http.post('/auth/refresh-token', { refreshToken: refreshToken });
+    localStorage.setItem('accessToken', data.token); // armazene o novo access token no local storage
 }
 
 export default {

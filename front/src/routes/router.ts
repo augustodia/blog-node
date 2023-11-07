@@ -1,10 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router';
 import AuthTemplate from '../template/AuthTemplate.vue';
 import Login from '../modules/Auth/Login.vue';
 import DefaultTemplate from "../template/DefaultTemplate.vue";
-import Home from "../modules/Home.vue";
+import Home from "../modules/Home/Home.vue";
+import Post from "@/modules/Post/Post.vue";
 
-const routes = [
+const routes: RouteRecordRaw[] = [
     {
         path: '/',
         component: DefaultTemplate,
@@ -12,7 +13,18 @@ const routes = [
             {
                 path: '',
                 name: 'home',
+                meta: {
+                  requireAuth: false,
+                },
                 component: Home,
+            },
+            {
+                path: '/post/:id',
+                name: 'post',
+                meta: {
+                    requireAuth: false,
+                },
+                component: Post,
             },
         ],
     },
@@ -22,6 +34,10 @@ const routes = [
         children: [
             {
                 path: '',
+                meta: {
+                    requireAuth: false,
+                },
+                name: 'login',
                 component: Login,
             },
         ],
@@ -44,12 +60,13 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    const publicPages = ['/login'];
-    const authRequired = !publicPages.includes(to.path);
-    const loggedIn = localStorage.getItem('accessToken');
+    const authRequired = !!to.meta.requiredAuth;
+    const loggedIn = !!localStorage.getItem('accessToken');
+
+    if(to.name === 'login' && loggedIn) return next({name: 'home'});
 
     if (authRequired && !loggedIn) {
-        return next('/login');
+        return next({name: 'login'});
     }
 
     next();

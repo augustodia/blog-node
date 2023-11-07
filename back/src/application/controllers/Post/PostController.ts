@@ -19,7 +19,7 @@ export default class PostController implements IPostController {
   }
 
   async getById(req: CustomRequest, res: Response) {
-    const { params } = getRequestInfo(req);
+    const { params } = req;
 
     const { id } = params;
 
@@ -31,7 +31,7 @@ export default class PostController implements IPostController {
   }
 
   async getByUser(req: CustomRequest, res: Response) {
-    const { params } = getRequestInfo(req);
+    const { params } = req;
 
     const { userId } = params;
 

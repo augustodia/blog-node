@@ -40,7 +40,7 @@ export class AuthService implements IAuthService {
 
     const newToken = jwt.sign({}, process.env.JWT_SECRET as string, {
       subject: user.id,
-      expiresIn: "15m",
+      expiresIn: "1h",
     });
 
     return { token: newToken };

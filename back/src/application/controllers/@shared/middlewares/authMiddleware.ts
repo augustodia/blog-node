@@ -1,5 +1,5 @@
 import { NextFunction, Response } from "express";
-import jwt, { JsonWebTokenError } from "jsonwebtoken";
+import jwt, { JsonWebTokenError, JwtPayload } from "jsonwebtoken";
 import process from "process";
 
 import { UnauthorizedError } from "@application/controllers/@shared/errors";
@@ -11,21 +11,20 @@ function verifyToken(req: CustomRequest, res: Response, next: NextFunction) {
   const token = req.headers.authorization;
 
   if (!token) return next(new UnauthorizedError("Need a valid token"));
+
   try {
     const clearToken = token.replace("Bearer ", "");
 
-    const payload = jwt.verify(
-      clearToken,
-      process.env.JWT_SECRET as string,
-      {}
-    );
+    const payload = jwt.verify(clearToken, process.env.JWT_SECRET as string, {
+      ignoreExpiration: false,
+    }) as JwtPayload;
 
-    if (typeof payload.sub == "string") req.userId = payload.sub;
+    if (payload.sub) req.userId = payload.sub;
 
     return next();
   } catch (e) {
     if (e instanceof JsonWebTokenError) {
-      return res.status(401).send({ error: "Invalid or expired token" });
+      return res.status(401).send(e.message);
     }
 
     next(e);

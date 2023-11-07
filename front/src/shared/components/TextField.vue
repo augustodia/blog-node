@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import {PropType} from "vue";
 
-type TextFieldType = 'text' | 'password'
-
+type TextFieldType = 'text' | 'password' | 'email'
 
 const props = defineProps({
   title: {
@@ -12,16 +11,27 @@ const props = defineProps({
   type: {
     type: String as PropType<TextFieldType>,
     default: 'text'
+  },
+  modelValue: {
+    type: String,
+    default: null
   }
 })
 
+const emit = defineEmits(['update:modelValue'])
+
+const updateValue = (event: Event) => {
+  let target = event.target as HTMLInputElement;
+
+  emit('update:modelValue', target.value)
+}
 
 </script>
 
 <template>
   <div class="text-field">
     <p v-if="props.title" class="field-title">{{props.title}}</p>
-    <input class="text-field-input" :type="type" v-bind="$attrs">
+    <input class="text-field-input" :type="type" v-bind="$attrs" :value="modelValue" @input="updateValue">
   </div>
 </template>
 

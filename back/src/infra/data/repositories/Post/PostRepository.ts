@@ -30,7 +30,7 @@ export class PostRepository extends BaseRepository implements IPostRepository {
       })
       .where("post.active", true)
       .andWhere("post.published", true)
-      .orderBy("post.createdAt");
+      .orderBy("post.createdAt", "DESC");
 
     const postIds = [...new Set(result.map(({ id }) => id))];
 

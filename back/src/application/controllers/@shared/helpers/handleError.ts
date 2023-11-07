@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 import EntityNotFound from "../../../../domain/@shared/errors/EntityNotFound";
 import { JsonWebTokenError } from "jsonwebtoken";
+import { UnauthorizedError } from "@application/controllers/@shared/errors";
 
 type AsyncHandler = (
   req: Request,
@@ -26,8 +27,12 @@ export function handleError(callBack: AsyncHandler) {
 
       if (e instanceof EntityNotFound) {
         return res
-          .status(401)
+          .status(400)
           .send({ error: `${e.message} not found or unauthorized action` });
+      }
+
+      if (e instanceof UnauthorizedError) {
+        return res.status(401).send({ error: e.message });
       }
 
       if (e instanceof Error) {

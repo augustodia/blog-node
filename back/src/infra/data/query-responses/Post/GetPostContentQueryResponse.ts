@@ -7,6 +7,6 @@ export type GetPostContentQueryResponse = {
   content: string;
   type: ContentBlockTypeEnum;
   visible: number;
-  createdAt: Date;
-  updatedAt: Date | null;
+  createdAt: string;
+  updatedAt: string | null;
 };
