@@ -23,8 +23,8 @@ getPosts();
 
 <template>
   <main>
-    <article v-if="post">
-      <h1>{{post.title}}</h1>
+    <article v-if="post" class="post">
+      <h1 class="post-title">{{post.title}}</h1>
       <p v-for="block in post.contentBlocks.sort(item => item.order)">{{block.value}}</p>
     </article>
   </main>
@@ -33,7 +33,8 @@ getPosts();
 <style scoped lang="scss">
 .post {
   &-title {
-    font-size: 32px;
+    font-size: 64px;
+    text-align: center;
   }
 }
 </style>

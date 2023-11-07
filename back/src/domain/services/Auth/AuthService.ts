@@ -43,6 +43,6 @@ export class AuthService implements IAuthService {
       expiresIn: "1h",
     });
 
-    return { token: newToken };
+    return { token: newToken, userInfo: { userName: user.userName } };
   }
 }

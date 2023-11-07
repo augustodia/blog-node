@@ -4,6 +4,7 @@ export async function login(credentials: {email: string, password: string}) {
     const { data } = await http.post('/auth/login', credentials);
     localStorage.setItem('accessToken', data.token);
     localStorage.setItem('refreshToken', data.refreshToken);
+    localStorage.setItem('userName', data.userInfo.userName);
 }
 
 
@@ -14,10 +15,17 @@ export async function refreshToken() {
     }
 
     const { data } = await http.post('/auth/refresh-token', { refreshToken: refreshToken });
-    localStorage.setItem('accessToken', data.token); // armazene o novo access token no local storage
+    localStorage.setItem('accessToken', data.token);
+}
+
+export function logoff() {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('userName');
 }
 
 export default {
     login,
-    refreshToken
+    refreshToken,
+    logoff
 }

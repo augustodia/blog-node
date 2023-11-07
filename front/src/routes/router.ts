@@ -23,6 +23,7 @@ const routes: RouteRecordRaw[] = [
                 name: 'post',
                 meta: {
                     requireAuth: false,
+                    showGoBackBtn: true,
                 },
                 component: Post,
             },

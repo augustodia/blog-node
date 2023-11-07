@@ -35,6 +35,7 @@ http.interceptors.response.use(
             } catch (err) {
                 localStorage.removeItem('accessToken');
                 localStorage.removeItem('refreshToken');
+                localStorage.removeItem('userName');
 
                 await router.push('/login');
             }

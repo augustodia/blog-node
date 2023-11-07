@@ -25,7 +25,9 @@ export default class AuthController implements IAuthController {
       expiresIn: "7d",
     });
 
-    return res.status(200).send({ token, refreshToken });
+    return res
+      .status(200)
+      .send({ token, refreshToken, userInfo: { userName: user.userName } });
   }
 
   async refreshToken(req: Request, res: Response): Promise<Response> {
@@ -37,8 +39,8 @@ export default class AuthController implements IAuthController {
       return res.status(403).send({ error: "No refresh token provided" });
     }
 
-    const { token } = await this.service.refreshUserToken(dto.refreshToken);
+    const result = await this.service.refreshUserToken(dto.refreshToken);
 
-    return res.status(200).send({ token });
+    return res.status(200).send(result);
   }
 }

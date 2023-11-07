@@ -33,7 +33,7 @@ const login = async () => {
     <text-field name="password" title="Senha" type="password" v-model="password"/>
     <a id="new-account" href="#">Não tem uma conta? Cadastre-se</a>
 
-    <button-component title="ENTRAR" :loading="loading" @click="login"/>
+    <button-component class="btn-login" title="ENTRAR" :loading="loading" @click="login" width="100%"/>
   </section>
 </template>
 
@@ -42,6 +42,11 @@ const login = async () => {
   width: 100%;
   max-width: 300px;
   margin: 0 auto;
+
+  .btn-login {
+    margin-top: 64px;
+    margin-bottom: 16px;
+  }
 
   #new-account {
     font-size: 14px;
