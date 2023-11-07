@@ -1,6 +1,6 @@
 import z from 'zod';
-import {AuthorSchema} from "@/dto/post/Author";
-import {ContentBlockSchema} from "@/dto/post/ContentBlock";
+import {AuthorSchema} from "@/services/dto/post/Author";
+import {ContentBlockSchema} from "@/services/dto/post/ContentBlock";
 
 
 const PostCompleteSchema = z.object({

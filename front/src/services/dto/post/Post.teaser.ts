@@ -1,5 +1,5 @@
 import z from 'zod';
-import {AuthorSchema} from "@/dto/post/Author";
+import {AuthorSchema} from "@/services/dto/post/Author";
 
 
 const PostTeaserSchema = z.object({

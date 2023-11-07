@@ -1,6 +1,6 @@
 import http from './httpClient';
-import {PostTeaserDto} from "@/dto/post/Post.teaser";
-import {PostCompleteDto} from "@/dto/post/Post.complete";
+import {PostTeaserDto} from "@/services/dto/post/Post.teaser";
+import {PostCompleteDto} from "@/services/dto/post/Post.complete";
 
 export async function getAll(): Promise<PostTeaserDto[]> {
     const { data } = await http.get<PostTeaserDto[]>('/post');

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import PostService from "@/services/post";
-import {PostTeaserDto} from "@/dto/post/Post.teaser";
+import {PostTeaserDto} from "@/services/dto/post/Post.teaser";
 import PostCard from "@/modules/Home/PostCard.vue";
 
 const posts = ref<PostTeaserDto[]>([]);

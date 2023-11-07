@@ -3,7 +3,7 @@ import {ref} from "vue";
 import {useRoute} from "vue-router";
 
 import PostService from "@/services/post";
-import {PostCompleteDto} from "@/dto/post/Post.complete";
+import {PostCompleteDto} from "@/services/dto/post/Post.complete";
 
 const route = useRoute();
 const postId = route.params.id as string;

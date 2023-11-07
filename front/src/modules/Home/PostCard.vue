@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed, PropType} from "vue";
 
-import {PostTeaserDto} from "@/dto/post/Post.teaser";
+import {PostTeaserDto} from "@/services/dto/post/Post.teaser";
 
 const props = defineProps({
   post: {
