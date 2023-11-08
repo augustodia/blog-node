@@ -7,6 +7,9 @@ export async function login(credentials: {email: string, password: string}) {
     localStorage.setItem('userName', data.userInfo.userName);
 }
 export async function refreshToken() {
+    try {
+
+
     const refreshToken = localStorage.getItem('refreshToken');
     if (!refreshToken) {
         throw new Error('No refresh token found');
@@ -14,6 +17,9 @@ export async function refreshToken() {
 
     const { data } = await http.post('/auth/refresh-token', { refreshToken: refreshToken });
     localStorage.setItem('accessToken', data.token);
+    } catch (e) {
+        throw e;
+    }
 }
 
 export function logoff() {

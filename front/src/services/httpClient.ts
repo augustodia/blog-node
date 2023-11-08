@@ -26,20 +26,23 @@ http.interceptors.response.use(
     response => response,
     async error => {
         const originalRequest = error.config;
-        if (error.response.status === 401 && !originalRequest._retry) {
-            originalRequest._retry = true;
-            try {
-                await refreshToken();
-                originalRequest.headers['Authorization'] = 'Bearer ' + localStorage.getItem('accessToken');
-                return http(originalRequest);
-            } catch (err) {
-                localStorage.removeItem('accessToken');
-                localStorage.removeItem('refreshToken');
-                localStorage.removeItem('userName');
+        const notInvalidRefreshToken = error.response.data.error !== "Invalid or expired refreshToken";
 
-                await router.push('/login');
-            }
+        if (error.response.status === 401 && notInvalidRefreshToken && !originalRequest._retry) {
+            originalRequest._retry = true;
+
+            await refreshToken();
+            originalRequest.headers['Authorization'] = 'Bearer ' + localStorage.getItem('accessToken');
+
+            return http(originalRequest);
         }
+
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('userName');
+
+        await router.push({name: 'login'});
+
         return Promise.reject(error);
     },
 );
