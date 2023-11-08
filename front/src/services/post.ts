@@ -14,7 +14,15 @@ export async function getById(id: string): Promise<PostCompleteDto> {
     return data;
 }
 
+export async function getPostsToUser(id: string): Promise<PostTeaserDto[]>  {
+    const { data } = await http.get<PostTeaserDto[]>(`/post/by-user/${id}`);
+
+    return data;
+}
+
+
 export default {
     getAll,
-    getById
+    getById,
+    getPostsToUser
 }

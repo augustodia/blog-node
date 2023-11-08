@@ -6,8 +6,6 @@ export async function login(credentials: {email: string, password: string}) {
     localStorage.setItem('refreshToken', data.refreshToken);
     localStorage.setItem('userName', data.userInfo.userName);
 }
-
-
 export async function refreshToken() {
     const refreshToken = localStorage.getItem('refreshToken');
     if (!refreshToken) {

@@ -4,6 +4,8 @@ import Login from '../modules/Auth/Login.vue';
 import DefaultTemplate from "../template/DefaultTemplate.vue";
 import Home from "../modules/Home/Home.vue";
 import Post from "@/modules/Post/Post.vue";
+import UserProfile from "@/modules/Profile/UserProfile.vue";
+import MyProfile from "@/modules/Profile/MyProfile.vue";
 
 const routes: RouteRecordRaw[] = [
     {
@@ -26,6 +28,24 @@ const routes: RouteRecordRaw[] = [
                     showGoBackBtn: true,
                 },
                 component: Post,
+            },
+            {
+                path: '/my-profile',
+                name: 'my-profile',
+                meta: {
+                    requireAuth: true,
+                    showGoBackBtn: true,
+                },
+                component: MyProfile,
+            },
+            {
+                path: '/user/:id',
+                name: 'user-profile',
+                meta: {
+                    requireAuth: false,
+                    showGoBackBtn: true,
+                },
+                component: UserProfile,
             },
         ],
     },
@@ -61,7 +81,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    const authRequired = !!to.meta.requiredAuth;
+    const authRequired = !!to.meta.requireAuth;
     const loggedIn = !!localStorage.getItem('accessToken');
 
     if(to.name === 'login' && loggedIn) return next({name: 'home'});

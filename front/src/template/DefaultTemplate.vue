@@ -16,6 +16,10 @@ const goToLoginPage = () => {
   router.push({name: 'login'})
 }
 
+const goToProfilePage = () => {
+  router.push({name: 'my-profile'})
+}
+
 const logoff = () => {
   AuthService.logoff();
 
@@ -36,10 +40,10 @@ const goBack = () => {
 
       <div class="auth-btns">
         <template v-if="hasLogged">
-          <button-component class="btn-profile" :title="userName"/>
+          <button-component class="btn-profile" type="secondary" :title="userName" @click="goToProfilePage"/>
           <button-component icon="fa-solid fa-power-off" type="danger" @click="logoff"/>
         </template>
-        <button-component v-else title="Login" @click="goToLoginPage"/>
+        <button-component v-else title="Login" type="secondary" @click="goToLoginPage"/>
       </div>
     </header>
 

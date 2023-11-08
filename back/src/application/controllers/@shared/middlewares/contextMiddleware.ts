@@ -23,6 +23,7 @@ export default async function contextMiddleware(
   _res: Response,
   next: NextFunction
 ): Promise<void> {
+  console.log(req);
   if (req.userId) {
     try {
       const context = await mountContext(req.userId);

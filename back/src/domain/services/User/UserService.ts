@@ -12,6 +12,8 @@ export default class UserService implements IUserService {
   async findById(userId: string) {
     const user = await this.repository.findBy({ column: "id", value: userId });
 
+    console.log("ID:", userId);
+
     if (!user) throw new EntityNotFound("User");
 
     return user.toDto();
