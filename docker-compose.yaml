@@ -8,11 +8,11 @@ services:
     command: bash "./entrypoint.sh"
     volumes:
       - ./back:/home/node/back
-    # healthcheck:
-    #   test: [ "CMD", "curl", "-f", "localhost:4321/ping" ]
-    #   interval: 20s
-    #   timeout: 20s
-    #   retries: 5
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "localhost:4321/ping" ]
+      interval: 20s
+      timeout: 20s
+      retries: 5
     depends_on:
       db:
         condition: service_healthy
@@ -25,9 +25,9 @@ services:
     command: bash "./entrypoint.sh"
     volumes:
       - ./front:/home/node/front
-    # depends_on:
-    #   back:
-    #     condition: service_healthy
+    depends_on:
+      back:
+        condition: service_healthy
 
   db:
     image: mysql:8.0.30-debian
