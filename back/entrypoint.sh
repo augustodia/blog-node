@@ -1,1 +1,1 @@
-npm install && npm run migrate && npm run dev
+chown -R node:node /home/node/back && npm install && npm run migrate && npm run dev
