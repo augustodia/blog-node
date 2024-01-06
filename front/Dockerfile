@@ -1,3 +1,3 @@
 FROM node:20.0-slim
 
-USER node
+USER root
