@@ -1,3 +1,3 @@
-npm install --unsafe-perm=true && npm run dev --unsafe-perm=true
+npm install --unsafe-perm && npm run dev --unsafe-perm
 #&&
 #tail -f /dev/null
