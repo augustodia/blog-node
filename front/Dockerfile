@@ -1,5 +1,5 @@
 FROM node:20.0-slim
 
-RUN usermod -u 0 node
+RUN chown -R node:node /home/node/back
 
 USER node
