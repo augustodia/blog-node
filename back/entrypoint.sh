@@ -1,1 +1,2 @@
-npm install && npm run migrate && npm run dev
+# npm install &&
+npm run migrate && npm run dev
