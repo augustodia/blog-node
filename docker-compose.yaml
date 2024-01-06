@@ -25,7 +25,6 @@ services:
     command: bash "./entrypoint.sh"
     volumes:
       - ./front:/home/node/front
-    user: "node"
     # depends_on:
     #   back:
     #     condition: service_healthy
