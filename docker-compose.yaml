@@ -10,8 +10,8 @@ services:
       - ./back:/home/node/back
     healthcheck:
       test: [ "CMD", "curl", "-f", "localhost:4321/ping" ]
-      interval: 20s
-      timeout: 20s
+      interval: 5s
+      timeout: 15s
       retries: 5
     depends_on:
       db:
