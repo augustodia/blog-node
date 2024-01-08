@@ -19,6 +19,7 @@ services:
 
   front:
     build: ./front
+    container_name: front
     ports:
       - "5173:5174"
     working_dir: /home/node/front
