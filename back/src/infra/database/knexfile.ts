@@ -36,6 +36,10 @@ const config: { [key: string]: Knex.Config } = {
       directory: "./migrations",
       loadExtensions: [".js", ".ts"],
     },
+    seed: {
+      directory: "./seeds",
+      loadExtensions: [".js", ".ts"],
+    },
   },
 };
 
